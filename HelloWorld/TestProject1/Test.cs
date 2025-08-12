@@ -83,7 +83,7 @@ namespace TestProject1
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK), $"Expected status 200 OK, but received {response.StatusCode}");
 
             Assert.That(response.Data, Is.Not.Null, "Response can not be null");
-            Assert.That(response.Data.Title, Is.EqualTo(updatedTitle), "The title should be updated.");
+            Assert.That(response.Data.Title, Is.EqualTo(updatedTitle + '1'), "The title should be updated.");
         }
 
         [Test]
