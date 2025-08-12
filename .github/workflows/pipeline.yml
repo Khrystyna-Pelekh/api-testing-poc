@@ -18,12 +18,15 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
-
+        
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore HelloWorld/HelloWorld.sln
+
+    - name: Build
+      run: dotnet build --no-restore HelloWorld/HelloWorld.sln
 
     - name: Run NUnit tests
-      run: dotnet test --verbosity normal
+      run: dotnet test HelloWorld/HelloWorld.sln --no-build --verbosity normal
       
   run-k6-performance-test:
     needs: run-nunit-tests
