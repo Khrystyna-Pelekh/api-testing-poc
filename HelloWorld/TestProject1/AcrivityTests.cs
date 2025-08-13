@@ -4,25 +4,10 @@ using System.Net;
 namespace TestProject1
 {
     [TestFixture]
-    public class Tests
+    public class ActivityTests : BaseApiTest
     {
 
-        private RestClient _client;
-        private const string BASE_URL = "https://fakerestapi.azurewebsites.net/api/v1";
-        private const int STATIC_ID = 1;
-
-        [SetUp]
-        public void Setup()
-        {
-            var options = new RestClientOptions(BASE_URL);
-            _client = new RestClient(options);
-        }
-
-        [TearDown]
-        public void Teardown()
-        {
-            _client?.Dispose();
-        }
+        private const int STATIC_ID = 1;      
 
         [Test]
         [Order(1)]
@@ -57,7 +42,6 @@ namespace TestProject1
             var response = await _client.ExecuteGetAsync<Activity>(request);
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK), $"Expected status 200 OK, but received {response.StatusCode}");
-
             Assert.That(response.Data, Is.Not.Null, "Response can not be null");
             Assert.That(response.Data.Id, Is.EqualTo(STATIC_ID), "The id should match the one requested.");
         }
@@ -81,7 +65,6 @@ namespace TestProject1
             var response = await _client.ExecutePutAsync<Activity>(request);
 
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK), $"Expected status 200 OK, but received {response.StatusCode}");
-
             Assert.That(response.Data, Is.Not.Null, "Response can not be null");
             Assert.That(response.Data.Title, Is.EqualTo(updatedTitle), "The title should be updated.");
         }
